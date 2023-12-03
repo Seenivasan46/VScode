@@ -25,11 +25,13 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import SignUpPage from "../e2e/pages/SignUpPage";
 
+//SignIn Amazon
 Cypress.Commands.add('signInAmazon', () => {
     cy.visit("/register");
     cy.url().should('include', '/register');
 });
 
+//Valid Inputs username, number, email, password
 Cypress.Commands.add('validSignUpForm', (username, number, email, password) => {
     SignUpPage.userNameField(username);
     SignUpPage.enterOnlyValidMobileNumber(number);
@@ -38,10 +40,12 @@ Cypress.Commands.add('validSignUpForm', (username, number, email, password) => {
     SignUpPage.submitField();
 });
 
+//name error custom command 
 Cypress.Commands.add('verifyNameErrorMessages', () => {
     SignUpPage.userNameErrorMessage();
 });
 
+//mobile error custom command
 Cypress.Commands.add('verifyMobileErrorMessages', (isValidMobileNumber) => {
     if (isValidMobileNumber) {
         SignUpPage.enterMobileNumberErrorMessage();
@@ -50,78 +54,49 @@ Cypress.Commands.add('verifyMobileErrorMessages', (isValidMobileNumber) => {
     }
 });
 
-// Cypress.Commands.add('verifyPasswordErrorMessages', (isPasswordLeastError) => {
-//     if (isPasswordLeastError) {
-//       SignUpPage.passwordLeastMessage();
-//     } else {
-//       SignUpPage.enterPasswordErrorMessage();
-//     }
-//   });
-
+//password least error custom command
 Cypress.Commands.add('verifyPasswordLeastMessages', () => {
     SignUpPage.passwordLeastMessage();
 })
 
+//password error message custom command
 Cypress.Commands.add('verifyPasswordErrorMessages', () => {
     SignUpPage.enterPasswordErrorMessage();
 })
 
+//submit custom command
 Cypress.Commands.add('submitClick', () => {
     SignUpPage.submitField();
 })
 
-
+//wait custom command
 const waitForSelector = (item, options = {}) => {
-    if (typeof item !== 'string' && !(item instanceof Function)) {
-        throw new Error('Cypress plugin waitForSelector: The first parameter should be a string or a function');
-    }
-
     const defaultSettings = {
-
         timeout: 200,
-
         tries: 300,
-
     };
 
     const SETTINGS = { ...defaultSettings, ...options };
 
     const check = item => {
-
         if (typeof item === 'string') {
-
             return Cypress.$(item).length > 0;
-
         }
-
         else {
-
             return item();
-
         }
-
     }
 
     return new Cypress.Promise((resolve, reject) => {
-
         let index = 0;
-
         const interval = setInterval(() => {
-
             if (check(item)) {
-
                 clearInterval(interval);
-
                 resolve();
-
             }
-
             if (index > SETTINGS.tries) {
-
                 reject();
-
             }
-
             index++;
         }, SETTINGS.timeout);
     });

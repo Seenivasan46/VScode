@@ -1,0 +1,13 @@
+{
+  "signup": {
+    "validUserName": "Demo Automation",
+    "onlySpace": "             ",
+    "validMailId": "demo_46@gmail.com",
+    "validPassword": "123456",
+    "leastPassword": "1234",
+    "validPhoneNumber": "9874561230",
+    "invalidMobilNumber": "98745Seeni"
+    
+  }
+  
+}

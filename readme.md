@@ -24,4 +24,6 @@ To run tests, run the following command
 ```bash
   npx cypress open
 ```
+### Report 
 
+Report Link -"file:///C:/Users/seeni/VScode/mochawesome-report/mochawesome.html"
